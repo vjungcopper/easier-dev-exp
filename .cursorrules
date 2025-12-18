@@ -1,0 +1,52 @@
+# Cursor AI Rules & Custom Commands
+
+This file enables custom command workflows defined in `.cursor/commands/`.
+
+## Custom Commands
+
+When the user says any of the following trigger phrases, execute the corresponding workflow defined in the `.cursor/commands/` directory:
+
+### Git Workflow Commands
+
+- **"run new branch"** or **"run create new branch"**
+
+  - Follow the workflow in `.cursor/commands/create-new-branch.md`
+  - Creates a new git branch following best practices
+
+- **"run push"** or **"run push changes"**
+
+  - Follow the workflow in `.cursor/commands/push-changes-to-branch.md`
+  - Pushes changes to the current branch with complete git workflow
+
+- **"run delete branch"**
+  - Follow the workflow in `.cursor/commands/delete-branch.md`
+  - Safely deletes a local git branch after review and merge
+
+### Development Environment Commands
+
+- **"run start"** or **"start dev environment"**
+
+  - Follow the workflow in `.cursor/commands/start.md`
+  - Starts the complete local development environment (backend + optional frontend)
+
+- **"run stop"** or **"stop dev environment"**
+  - Follow the workflow in `.cursor/commands/stop.md`
+  - Gracefully shuts down the development environment
+
+## Command Execution Guidelines
+
+When executing these commands:
+
+1. **Read the command file first** - Always read the corresponding `.md` file in `.cursor/commands/` to understand the full workflow
+2. **Follow the steps exactly** - Execute each step as defined in the command file
+3. **Handle errors gracefully** - Follow the error handling procedures defined in each command
+4. **Request permissions when needed** - Commands may require `all` or `network` permissions
+5. **Be interactive** - Ask for user input when the workflow requires it (commit messages, branch names, confirmations, etc.)
+6. **Provide clear feedback** - Keep the user informed at each step of the process
+
+## General Development Rules
+
+- Always use the Shell tool for terminal commands rather than suggesting commands to run manually
+- When making git commits, ensure commit messages are descriptive and follow best practices
+- Handle file operations using the dedicated tools (Read, Write, StrReplace) rather than terminal commands
+- Request appropriate permissions (git_write, network, all) when needed for operations
