@@ -50,3 +50,4 @@ When executing these commands:
 - When making git commits, ensure commit messages are descriptive and follow best practices
 - Handle file operations using the dedicated tools (Read, Write, StrReplace) rather than terminal commands
 - Request appropriate permissions (git_write, network, all) when needed for operations
+

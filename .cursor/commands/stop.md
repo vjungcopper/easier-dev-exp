@@ -4,7 +4,7 @@ This document defines the "stop" command workflow. When a user requests to "run 
 
 ## Overview
 
-Stop the web-app frontend server first, then stop the backend services to ensure a clean shutdown.
+Stop the backend services first, then stop the web-app frontend server to ensure a clean shutdown.
 
 ## Command Usage
 
@@ -18,46 +18,49 @@ Execute the stop sequence to gracefully shut down both frontend and backend serv
 
 Execute these commands **sequentially**:
 
-1. **Stop Web App Frontend** (First)
+1. **Stop Backend Services** (First)
 
-   a. **Check for running process on port 4201:**
-
-   - Command: `lsof -i :4201`
-   - Permissions Required: `all`
-   - Purpose: Identify if Ember server is running and get its PID
-
-   b. **Kill the process if running:**
-
-   - Command: `kill -9 $(lsof -ti :4201)`
-   - Permissions Required: `all`
-   - Only execute if lsof found a running process
-
-   c. **Verify process is stopped:**
-
-   - Command: `lsof -i :4201`
-   - Expected: No output (confirming port 4201 is free)
-   - **Wait for:** Confirmation that no process is listening on port 4201
-
-2. **Stop Backend Services** (After frontend is stopped)
    - Command: `./cc.stop`
    - Permissions Required: `network`
    - Run as: Background process
    - **Wait for:** Output containing "All containers stopped successfully."
 
+2. **Stop All Web App Frontend Localhosts** (After the backend services successfully stopped)
+
+   a. **Check for all Ember localhosts:**
+
+   - Command: `lsof -i -P -n | grep LISTEN`
+   - Permissions Required: `all`
+   - Purpose: Identify if Ember server is running and get its PID
+   - Find all localhost ports named "node" and "ruby"
+
+   b. **Kill all the processes if running:**
+
+   - Command: `kill -9 $(lsof -ti :"PORT NAMED 'NODE' OR 'RUBY'")`
+   - Permissions Required: `all`
+   - Only execute if lsof found a running process
+
+   c. **Verify all the processes are stopped:**
+
+   - Command: `lsof -i -P -n | grep LISTEN`
+   - Expected: No output
+
+3. **If all successfully stopped, inform the user**
+
 ## Execution Notes
 
-- First, check if the Ember server is running on port 4201 using lsof
-- If a process is found, forcefully kill it using kill -9
-- Verify that port 4201 is free before proceeding
-- Once frontend is confirmed stopped, run the backend stop script
+- First, run the backend stop script to shut down all backend services
 - The cc.stop script will handle stopping all backend services gracefully
+- After backend services are stopped, check if the Ember server is running using lsof
+- If a process is found (node or ruby), forcefully kill it using kill -9
+- Verify that all frontend processes are stopped
 
 ## Expected Behavior
 
 After running these commands:
 
-- Ember web app server will be stopped (port 4201 freed)
 - All backend services will be stopped
+- Ember web app server will be stopped (all node and ruby processes freed)
 - Development environment will be fully shut down
 
 ## Error Handling
