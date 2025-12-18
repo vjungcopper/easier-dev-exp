@@ -14,9 +14,7 @@ Cursor Commands are markdown files stored in `.cursor/commands/` that define aut
 
 ### Git Workflow Commands
 
-#### `create-new-branch`
-
-**Usage:** "run new branch" or "run create new branch"
+#### `run new branch`
 
 Creates a new git branch following best practices:
 
@@ -30,9 +28,7 @@ Creates a new git branch following best practices:
 
 ---
 
-#### `push-changes-to-branch`
-
-**Usage:** "run push"
+#### `run push`
 
 Pushes your changes to the current branch with a complete git workflow:
 
@@ -47,9 +43,7 @@ Pushes your changes to the current branch with a complete git workflow:
 
 ---
 
-#### `delete-branch`
-
-**Usage:** "run delete branch"
+#### `run delete branch`
 
 Safely deletes a local git branch after review and merge:
 
@@ -66,9 +60,7 @@ Safely deletes a local git branch after review and merge:
 
 ### Development Environment Commands
 
-#### `start`
-
-**Usage:** "run start"
+#### `run start`
 
 Starts your complete local development environment:
 
@@ -83,9 +75,7 @@ Starts your complete local development environment:
 
 ---
 
-#### `stop`
-
-**Usage:** "run stop"
+#### `run stop`
 
 Gracefully shuts down your development environment:
 
